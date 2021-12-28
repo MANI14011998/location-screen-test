@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Test Page</title>
+    <style>
+        body {
+            font-size: 40px;
+            padding: 0;
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .post-button {
+            height: 3rem;
+            width: 10rem;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>
+            We request you to allow us to access your location in order to proceed with your Video KYC request
+        </p>
+        <button class="post-button" id="location-button">
+            Continue
+        </button>
+    </div>
+    <form id="frm1" method="post">
+        <input id="param1" name="param1" />
+        <input id="param2" name="param2" />
+    </form>
+    <script>
+        document.getElementById("location-button").addEventListener("click", getLocationOnClick);
+        function getLocationOnClick() {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                console.log("Entered in");
+                document.getElementById("param1").value = position.coords.longitude;
+                document.getElementById("param2").value = position.coords.latitude;
+                //document.getElementById("frm2").submit();
+            });
+            {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition, showError);
+                } else {
+                    alert("Geolocation is not supported by this browser.");
+                }
+            }
+        }
+
+        function showPosition(position) {
+            document.getElementById("param1").value = position.coords.longitude;
+            document.getElementById("param2").value = position.coords.latitude;
+        }
+
+        function showError(error) {
+            document.getElementById("param1").value = error.code;
+            document.getElementById("param2").value = error;
+        }
+    </script>
+    <script src="/script/index.js" type="text/javascript"></script>
+</body>
+
+</html>
+
+
